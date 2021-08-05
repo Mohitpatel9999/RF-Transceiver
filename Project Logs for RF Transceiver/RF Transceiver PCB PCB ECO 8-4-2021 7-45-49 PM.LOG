@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=NRF_CE Pin=U2-13
+Removed Pin From Net: NetName=NRF_IRQ Pin=U2-18
+Added Pin To Net: NetName=NRF_IRQ Pin=U2-13
+Added Pin To Net: NetName=SPI_CS Pin=U2-18
+Added Pin To Net: NetName=NRF_CE Pin=U2-19
+Added Member To Class: ClassName=RF Transceiver Sch Member=Component J1 105017-0001
