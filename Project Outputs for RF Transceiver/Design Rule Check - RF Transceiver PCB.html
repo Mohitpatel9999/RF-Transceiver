@@ -1,0 +1,826 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">8/8/2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">10:02:28 AM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc" class="file"><acronym title="C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc">C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">158</td></tr>
+</table>
+</td>
+</table><a name="IDNRZT4JJUHDE0HJOHIT11KBKDEHBUWEECTUQYP0BBHO5OFMJ3UXLB"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID10XCR40M3HMNKV2VIQ3X52WWLMXMOTO2DIOFABHK02GGEK2QWNJK">Clearance Constraint (Gap=0.24mm) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFIOMH0Y311FFIFSJUHIJPYA54EJBMZ2EOE4TPAHSLVJGYGTUSXSO">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMLXHFMLJW4PHFC5DDFSXHSMTHKI0EV1N1IMQHGMSKZWE0JKHR0RP">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBGEIADWHE50BBGRCN1COJLYD0OLX24N2VBJGETBHEMMBHGPEILKB">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFXM3HC2YQ1HXDK4HIXGX12DIWLZTHOU21NVXRYPRV42QVZ2YK1QH">Width Constraint (Min=0.1mm) (Max=1.524mm) (Preferred=0.293mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDDUB05I0HZWBTMS1LKHFXWAHYOIIFCETCIGLU0JLKOYHBVIBWFOYC">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLXRO3CGT3WJDHP4QLOED3NQZ3P0A5FHWTNOTTOKCBEFGMHSLDLYD">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRODW2QFUVVWVEQD0M3DCO2MVPBC0FJWRYEVXBNKHOELTHSL33TDE">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYHWTG24EIOPLCGOZGI1Z02KJDPYDSZUE0FXLEQOKB5TB0ZIVKHLL">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">150</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5OMUJL5AYAKSFN12LCMSC4MPHNW42A0Y445UQB0PBAE3OY3JIRG">Silk To Solder Mask (Clearance=0.254mm) (Disabled)(IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUVG5HFGVSSY3HYK5DQTBPIRNFCE1WJUHVPFX24DM5QIFVWMWTJDF">Silk to Silk (Clearance=0.254mm) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSUQVW00HB21QKC4MWUWVODCU3BXUPSND1RHAS3L1WH5Q55ESHIQE">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1BHM5DN5005EBCNR0KH00IUB2IN5DD2JAK054PDTYZS3EWWHTZCO">Matched Lengths(Tolerance=25.4mm) (InDifferentialPairClass('D2'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSPRJRDUEXN54KU4GX5LEXLJZPLJM1BWZIQ1LUAL0WXYOPIXGHYKE">Matched Lengths(Tolerance=25.4mm) (InDifferentialPairClass('D'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCK3QNBB1SLUJPLJ4Q0ACQRPR0IK40SY5JL2LSWO3AOIUC1HHPREN">Matched Lengths(Tolerance=25.4mm) (InDifferentialPairClass('D2'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYNOIOBKLMRLOGXZ5GD2TIYSZLCVX0SOMOTVS4YPM3DYOATKK2ZJO">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">158</td>
+</tr>
+</table><br><a name="IDMLXHFMLJW4PHFC5DDFSXHSMTHKI0EV1N1IMQHGMSKZWE0JKHR0RP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.621mil|Location2.X=2116.379mil|Location1.Y=1553.621mil|Location2.Y=1576.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.621mil|Location2.X=2116.379mil|Location1.Y=1553.621mil|Location2.Y=1576.379mil|Absolute=True">Isolated copper: Split Plane  (GND) on GND. Dead copper detected. Copper area is : 0.128 sq. mm</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDDUB05I0HZWBTMS1LKHFXWAHYOIIFCETCIGLU0JLKOYHBVIBWFOYC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1066.22mil|Location2.X=1153.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1066.22mil|Location2.X=1153.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True">Starved Thermal on GND: Pad P1-3(2.794mm,1.905mm) on Multi-Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1116.22mil|Location2.X=1203.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1116.22mil|Location2.X=1203.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True">Starved Thermal on GND: Pad P1-5(4.064mm,1.905mm) on Multi-Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1216.22mil|Location2.X=1303.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1216.22mil|Location2.X=1303.78mil|Location1.Y=1206.22mil|Location2.Y=1293.78mil|Absolute=True">Starved Thermal on GND: Pad P1-9(6.604mm,1.905mm) on Multi-Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1282.008mil|Location2.X=1357.756mil|Location1.Y=1176.496mil|Location2.Y=1252.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1282.008mil|Location2.X=1357.756mil|Location1.Y=1176.496mil|Location2.Y=1252.244mil|Absolute=True">Starved Thermal on GND: Via (8.125mm,1mm) from Top Layer to Bottom Layer. Blocked 3 out of 4 entries.</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYHWTG24EIOPLCGOZGI1Z02KJDPYDSZUE0FXLEQOKB5TB0ZIVKHLL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1795.501mil|Location2.X=1806.751mil|Location1.Y=1205.737mil|Location2.Y=1216.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1795.501mil|Location2.X=1806.751mil|Location1.Y=1205.737mil|Location2.Y=1216.987mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad C10-1(20.329mm,1.596mm) on Top Layer And Pad C10-2(21.021mm,0.904mm) on Top Layer [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1803.549mil|Location2.X=1814.799mil|Location1.Y=1255.645mil|Location2.Y=1266.895mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1803.549mil|Location2.X=1814.799mil|Location1.Y=1255.645mil|Location2.Y=1266.895mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.235mm &lt; 0.254mm) Between Pad C10-1(20.329mm,1.596mm) on Top Layer And Pad HSE1-4(21.681mm,2.363mm) on Top Layer [Top Solder] Mask Sliver [0.235mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1791.212mil|Location2.X=1802.462mil|Location1.Y=1259.424mil|Location2.Y=1270.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1791.212mil|Location2.X=1802.462mil|Location1.Y=1259.424mil|Location2.Y=1270.674mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.139mm &lt; 0.254mm) Between Pad C10-1(20.329mm,1.596mm) on Top Layer And Pad U2-1(19.571mm,2.956mm) on Top Layer [Top Solder] Mask Sliver [0.139mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1779.942mil|Location2.X=1791.192mil|Location1.Y=1217.46mil|Location2.Y=1228.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1779.942mil|Location2.X=1791.192mil|Location1.Y=1217.46mil|Location2.Y=1228.71mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.138mm &lt; 0.254mm) Between Pad C10-1(20.329mm,1.596mm) on Top Layer And Via (19.55mm,0.818mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.138mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1851.527mil|Location2.X=1862.777mil|Location1.Y=1207.667mil|Location2.Y=1218.917mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1851.527mil|Location2.X=1862.777mil|Location1.Y=1207.667mil|Location2.Y=1218.917mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.235mm &lt; 0.254mm) Between Pad C10-2(21.021mm,0.904mm) on Top Layer And Pad HSE1-1(22.813mm,1.231mm) on Top Layer [Top Solder] Mask Sliver [0.235mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1841.22mil|Location2.X=1852.47mil|Location1.Y=1217.973mil|Location2.Y=1229.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1841.22mil|Location2.X=1852.47mil|Location1.Y=1217.973mil|Location2.Y=1229.223mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.235mm &lt; 0.254mm) Between Pad C10-2(21.021mm,0.904mm) on Top Layer And Pad HSE1-4(21.681mm,2.363mm) on Top Layer [Top Solder] Mask Sliver [0.235mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.556mil|Location2.X=1997.806mil|Location1.Y=1351.517mil|Location2.Y=1362.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.556mil|Location2.X=1997.806mil|Location1.Y=1351.517mil|Location2.Y=1362.767mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad C14-1(25.221mm,3.954mm) on Top Layer And Pad C14-2(24.529mm,4.646mm) on Top Layer [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.611mil|Location2.X=1996.861mil|Location1.Y=1296.475mil|Location2.Y=1307.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.611mil|Location2.X=1996.861mil|Location1.Y=1296.475mil|Location2.Y=1307.725mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.165mm &lt; 0.254mm) Between Pad C14-1(25.221mm,3.954mm) on Top Layer And Pad HSE1-2(24.369mm,2.787mm) on Top Layer [Top Solder] Mask Sliver [0.165mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2001.409mil|Location2.X=2012.659mil|Location1.Y=1310.963mil|Location2.Y=1322.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2001.409mil|Location2.X=2012.659mil|Location1.Y=1310.963mil|Location2.Y=1322.213mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad C14-1(25.221mm,3.954mm) on Top Layer And Via (25.95mm,3.225mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.641mil|Location2.X=1967.891mil|Location1.Y=1381.431mil|Location2.Y=1392.681mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.641mil|Location2.X=1967.891mil|Location1.Y=1381.431mil|Location2.Y=1392.681mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.206mm &lt; 0.254mm) Between Pad C14-2(24.529mm,4.646mm) on Top Layer And Pad C17-1(24.326mm,5.784mm) on Top Layer [Top Solder] Mask Sliver [0.206mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1958.933mil|Location2.X=1971.555mil|Location1.Y=1323.153mil|Location2.Y=1334.403mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1958.933mil|Location2.X=1971.555mil|Location1.Y=1323.153mil|Location2.Y=1334.403mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.17mm &lt; 0.254mm) Between Pad C14-2(24.529mm,4.646mm) on Top Layer And Pad HSE1-2(24.369mm,2.787mm) on Top Layer [Top Solder] Mask Sliver [0.17mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1931.514mil|Location2.X=1942.764mil|Location1.Y=1350.571mil|Location2.Y=1361.821mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1931.514mil|Location2.X=1942.764mil|Location1.Y=1350.571mil|Location2.Y=1361.821mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.165mm &lt; 0.254mm) Between Pad C14-2(24.529mm,4.646mm) on Top Layer And Pad HSE1-3(23.237mm,3.919mm) on Top Layer [Top Solder] Mask Sliver [0.165mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.447mil|Location2.X=1720.697mil|Location1.Y=1220.342mil|Location2.Y=1234.076mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.447mil|Location2.X=1720.697mil|Location1.Y=1220.342mil|Location2.Y=1234.076mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.211mm &lt; 0.254mm) Between Pad C15-2(17.742mm,1.367mm) on Top Layer And Via (18.752mm,1.506mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.211mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1933.666mil|Location2.X=1944.916mil|Location1.Y=1399.604mil|Location2.Y=1412.014mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1933.666mil|Location2.X=1944.916mil|Location1.Y=1399.604mil|Location2.Y=1412.014mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.238mm &lt; 0.254mm) Between Pad C17-1(24.326mm,5.784mm) on Top Layer And Pad U2-11(23.106mm,6.492mm) on Top Layer [Top Solder] Mask Sliver [0.238mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1945.54mil|Location2.X=1956.79mil|Location1.Y=1411.323mil|Location2.Y=1422.573mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1945.54mil|Location2.X=1956.79mil|Location1.Y=1411.323mil|Location2.Y=1422.573mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.227mm &lt; 0.254mm) Between Pad C17-1(24.326mm,5.784mm) on Top Layer And Pad U2-12(23.46mm,6.845mm) on Top Layer [Top Solder] Mask Sliver [0.227mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2316.249mil|Location2.X=2327.499mil|Location1.Y=1245.95mil|Location2.Y=1257.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2316.249mil|Location2.X=2327.499mil|Location1.Y=1245.95mil|Location2.Y=1257.2mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad C19-1(33.114mm,1.455mm) on Top Layer And Pad C19-2(33.114mm,2.435mm) on Top Layer [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.147mil|Location2.X=2329.536mil|Location1.Y=1244.025mil|Location2.Y=1255.275mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.147mil|Location2.X=2329.536mil|Location1.Y=1244.025mil|Location2.Y=1255.275mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.15mm &lt; 0.254mm) Between Pad C19-2(33.114mm,2.435mm) on Top Layer And Via (33.995mm,1.455mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2074.903mil|Location2.X=2086.153mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2074.903mil|Location2.X=2086.153mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad C20-1(27.907mm,2.562mm) on Top Layer And Pad C20-2(27.907mm,1.582mm) on Top Layer [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1289.202mil|Location2.Y=1300.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1289.202mil|Location2.Y=1300.452mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.177mm &lt; 0.254mm) Between Pad C20-1(27.907mm,2.562mm) on Top Layer And Pad HSE2-2(29.347mm,2.872mm) on Top Layer [Top Solder] Mask Sliver [0.177mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1248.686mil|Location2.Y=1260.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1248.686mil|Location2.Y=1260.578mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.221mm &lt; 0.254mm) Between Pad C20-1(27.907mm,2.562mm) on Top Layer And Pad HSE2-3(29.347mm,1.272mm) on Top Layer [Top Solder] Mask Sliver [0.221mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1252.632mil|Location2.Y=1264.464mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1252.632mil|Location2.Y=1264.464mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.221mm &lt; 0.254mm) Between Pad C20-2(27.907mm,1.582mm) on Top Layer And Pad HSE2-2(29.347mm,2.872mm) on Top Layer [Top Solder] Mask Sliver [0.221mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1246.091mil|Location2.Y=1257.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2114.729mil|Location2.X=2125.979mil|Location1.Y=1246.091mil|Location2.Y=1257.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.177mm &lt; 0.254mm) Between Pad C20-2(27.907mm,1.582mm) on Top Layer And Pad HSE2-3(29.347mm,1.272mm) on Top Layer [Top Solder] Mask Sliver [0.177mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2064.257mil|Location2.X=2075.507mil|Location1.Y=1419.328mil|Location2.Y=1430.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2064.257mil|Location2.X=2075.507mil|Location1.Y=1419.328mil|Location2.Y=1430.578mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.244mm &lt; 0.254mm) Between Pad C5-2(26.943mm,6.731mm) on Top Layer And Via (27.175mm,5.725mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.244mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2419.375mil|Location2.X=2430.625mil|Location1.Y=1604.914mil|Location2.Y=1616.164mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2419.375mil|Location2.X=2430.625mil|Location1.Y=1604.914mil|Location2.Y=1616.164mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.231mm &lt; 0.254mm) Between Pad C9-2(36.195mm,10.687mm) on Top Layer And Via (36.195mm,11.68mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.231mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1380.273mil|Location2.X=1391.523mil|Location1.Y=1490.674mil|Location2.Y=1501.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1380.273mil|Location2.X=1391.523mil|Location1.Y=1490.674mil|Location2.Y=1501.924mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad D1-1(9.1mm,7.686mm) on Top Layer And Pad D1-2(9.1mm,8.636mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1380.273mil|Location2.X=1391.523mil|Location1.Y=1528.076mil|Location2.Y=1539.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1380.273mil|Location2.X=1391.523mil|Location1.Y=1528.076mil|Location2.Y=1539.326mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad D1-2(9.1mm,8.636mm) on Top Layer And Pad D1-3(9.1mm,9.586mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1234.477mil|Location2.X=1245.727mil|Location1.Y=1528.076mil|Location2.Y=1539.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1234.477mil|Location2.X=1245.727mil|Location1.Y=1528.076mil|Location2.Y=1539.326mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad D1-4(6.8mm,9.586mm) on Top Layer And Pad D1-5(6.8mm,8.636mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1234.477mil|Location2.X=1245.727mil|Location1.Y=1490.674mil|Location2.Y=1501.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1234.477mil|Location2.X=1245.727mil|Location1.Y=1490.674mil|Location2.Y=1501.924mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad D1-5(6.8mm,8.636mm) on Top Layer And Pad D1-6(6.8mm,7.686mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.505mil|Location2.X=1203.755mil|Location1.Y=1632.8mil|Location2.Y=1644.05mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1192.505mil|Location2.X=1203.755mil|Location1.Y=1632.8mil|Location2.Y=1644.05mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.124mm &lt; 0.254mm) Between Pad F1-1(6.096mm,12.062mm) on Top Layer And Pad J1-6(4.144mm,11.771mm) on Multi-Layer [Top Solder] Mask Sliver [0.124mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1892.564mil|Location2.X=1903.814mil|Location1.Y=1262.446mil|Location2.Y=1273.696mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1892.564mil|Location2.X=1903.814mil|Location1.Y=1262.446mil|Location2.Y=1273.696mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad HSE1-1(22.813mm,1.231mm) on Top Layer And Pad HSE1-4(21.681mm,2.363mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1953.809mil|Location2.X=1965.059mil|Location1.Y=1323.691mil|Location2.Y=1334.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1953.809mil|Location2.X=1965.059mil|Location1.Y=1323.691mil|Location2.Y=1334.941mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad HSE1-2(24.369mm,2.787mm) on Top Layer And Pad HSE1-3(23.237mm,3.919mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.2mil|Location2.X=2008.45mil|Location1.Y=1283.06mil|Location2.Y=1295.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.2mil|Location2.X=2008.45mil|Location1.Y=1283.06mil|Location2.Y=1295.323mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.138mm &lt; 0.254mm) Between Pad HSE1-2(24.369mm,2.787mm) on Top Layer And Via (25.95mm,3.225mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.138mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.824mil|Location2.X=2216.074mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.824mil|Location2.X=2216.074mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad HSE2-1(31.547mm,2.872mm) on Top Layer And Pad HSE2-4(31.547mm,1.272mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.21mil|Location2.X=2129.46mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.21mil|Location2.X=2129.46mil|Location1.Y=1250.95mil|Location2.Y=1262.2mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad HSE2-2(29.347mm,2.872mm) on Top Layer And Pad HSE2-3(29.347mm,1.272mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2115.379mil|Location2.X=2126.629mil|Location1.Y=1303.233mil|Location2.Y=1314.483mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2115.379mil|Location2.X=2126.629mil|Location1.Y=1303.233mil|Location2.Y=1314.483mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.144mm &lt; 0.254mm) Between Pad HSE2-2(29.347mm,2.872mm) on Top Layer And Via (27.9mm,3.4mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.144mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1572.761mil|Location2.Y=1584.011mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1572.761mil|Location2.Y=1584.011mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad J1-1(4.144mm,10.571mm) on Top Layer And Pad J1-2(4.144mm,9.921mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.525mil|Location2.X=1168.775mil|Location1.Y=1598.843mil|Location2.Y=1610.093mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.525mil|Location2.X=1168.775mil|Location1.Y=1598.843mil|Location2.Y=1610.093mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad J1-1(4.144mm,10.571mm) on Top Layer And Pad J1-6(4.144mm,11.771mm) on Multi-Layer [Top Solder] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1547.17mil|Location2.Y=1558.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1547.17mil|Location2.Y=1558.42mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad J1-2(4.144mm,9.921mm) on Top Layer And Pad J1-3(4.144mm,9.271mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1521.58mil|Location2.Y=1532.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1521.58mil|Location2.Y=1532.83mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad J1-3(4.144mm,9.271mm) on Top Layer And Pad J1-4(4.144mm,8.621mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1495.989mil|Location2.Y=1507.239mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1188.099mil|Location2.X=1199.349mil|Location1.Y=1495.989mil|Location2.Y=1507.239mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad J1-4(4.144mm,8.621mm) on Top Layer And Pad J1-5(4.144mm,7.971mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.525mil|Location2.X=1168.775mil|Location1.Y=1469.906mil|Location2.Y=1481.156mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1157.525mil|Location2.X=1168.775mil|Location1.Y=1469.906mil|Location2.Y=1481.156mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad J1-5(4.144mm,7.971mm) on Top Layer And Pad J1-7(4.144mm,6.771mm) on Multi-Layer [Top Solder] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1190.327mil|Location2.X=1201.577mil|Location1.Y=1425.765mil|Location2.Y=1439.383mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1190.327mil|Location2.X=1201.577mil|Location1.Y=1425.765mil|Location2.Y=1439.383mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.092mm &lt; 0.254mm) Between Pad J1-7(4.144mm,6.771mm) on Multi-Layer And Via (5.5mm,6.35mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.092mm] / [Bottom Solder] Mask Sliver [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1054.375mil|Location2.X=1065.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1054.375mil|Location2.X=1065.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-1(1.524mm,1.905mm) on Multi-Layer And Pad P1-2(1.524mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1079.375mil|Location2.X=1090.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1079.375mil|Location2.X=1090.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-1(1.524mm,1.905mm) on Multi-Layer And Pad P1-3(2.794mm,1.905mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.375mil|Location2.X=1240.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.375mil|Location2.X=1240.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-10(6.604mm,3.175mm) on Multi-Layer And Pad P1-8(5.334mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1265.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1265.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-10(6.604mm,3.175mm) on Multi-Layer And Pad P1-9(6.604mm,1.905mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1079.375mil|Location2.X=1090.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1079.375mil|Location2.X=1090.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-2(1.524mm,3.175mm) on Multi-Layer And Pad P1-4(2.794mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1104.375mil|Location2.X=1115.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1104.375mil|Location2.X=1115.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-3(2.794mm,1.905mm) on Multi-Layer And Pad P1-4(2.794mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.375mil|Location2.X=1140.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.375mil|Location2.X=1140.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-3(2.794mm,1.905mm) on Multi-Layer And Pad P1-5(4.064mm,1.905mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.375mil|Location2.X=1140.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.375mil|Location2.X=1140.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-4(2.794mm,3.175mm) on Multi-Layer And Pad P1-6(4.064mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1154.375mil|Location2.X=1165.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1154.375mil|Location2.X=1165.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-5(4.064mm,1.905mm) on Multi-Layer And Pad P1-6(4.064mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1179.375mil|Location2.X=1190.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1179.375mil|Location2.X=1190.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-5(4.064mm,1.905mm) on Multi-Layer And Pad P1-7(5.334mm,1.905mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1179.375mil|Location2.X=1190.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1179.375mil|Location2.X=1190.625mil|Location1.Y=1294.375mil|Location2.Y=1305.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-6(4.064mm,3.175mm) on Multi-Layer And Pad P1-8(5.334mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1204.375mil|Location2.X=1215.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1204.375mil|Location2.X=1215.625mil|Location1.Y=1269.375mil|Location2.Y=1280.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-7(5.334mm,1.905mm) on Multi-Layer And Pad P1-8(5.334mm,3.175mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.375mil|Location2.X=1240.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1229.375mil|Location2.X=1240.625mil|Location1.Y=1244.375mil|Location2.Y=1255.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.254mm) Between Pad P1-7(5.334mm,1.905mm) on Multi-Layer And Pad P1-9(6.604mm,1.905mm) on Multi-Layer [Top Solder] Mask Sliver [0.017mm] / [Bottom Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.375mil|Location2.X=1400.625mil|Location1.Y=1252.076mil|Location2.Y=1263.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.375mil|Location2.X=1400.625mil|Location1.Y=1252.076mil|Location2.Y=1263.326mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad R1-1(10.658mm,1.524mm) on Top Layer And Pad R1-2(9.408mm,1.524mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.375mil|Location2.X=1400.625mil|Location1.Y=1313.769mil|Location2.Y=1325.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.375mil|Location2.X=1400.625mil|Location1.Y=1313.769mil|Location2.Y=1325.019mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad R2-1(10.658mm,3.091mm) on Top Layer And Pad R2-2(9.408mm,3.091mm) on Top Layer [Top Solder] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1364.769mil|Location2.X=1376.019mil|Location1.Y=1317.662mil|Location2.Y=1328.912mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1364.769mil|Location2.X=1376.019mil|Location1.Y=1317.662mil|Location2.Y=1328.912mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.198mm &lt; 0.254mm) Between Pad R2-2(9.408mm,3.091mm) on Top Layer And Via (9.408mm,4.367mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.198mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2224.202mil|Location2.X=2235.452mil|Location1.Y=1689.375mil|Location2.Y=1700.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2224.202mil|Location2.X=2235.452mil|Location1.Y=1689.375mil|Location2.Y=1700.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad R4-1(30.861mm,12.758mm) on Top Layer And Pad R4-2(30.861mm,13.658mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.942mil|Location2.X=2220.192mil|Location1.Y=1724.65mil|Location2.Y=1735.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.942mil|Location2.X=2220.192mil|Location1.Y=1724.65mil|Location2.Y=1735.9mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.139mm &lt; 0.254mm) Between Pad R4-2(30.861mm,13.658mm) on Top Layer And Via (30.85mm,14.675mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.139mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1475.485mil|Location2.X=1486.735mil|Location1.Y=1349.493mil|Location2.Y=1360.743mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1475.485mil|Location2.X=1486.735mil|Location1.Y=1349.493mil|Location2.Y=1360.743mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.237mm &lt; 0.254mm) Between Pad R5-1(12.623mm,4.575mm) on Top Layer And Via (11.6mm,4.575mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.237mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1503.931mil|Location2.X=1516.633mil|Location1.Y=1363.26mil|Location2.Y=1374.51mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1503.931mil|Location2.X=1516.633mil|Location1.Y=1363.26mil|Location2.Y=1374.51mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.146mm &lt; 0.254mm) Between Pad R5-1(12.623mm,4.575mm) on Top Layer And Via (13.225mm,5.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.146mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1515.716mil|Location2.X=1526.966mil|Location1.Y=1361.991mil|Location2.Y=1373.241mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1515.716mil|Location2.X=1526.966mil|Location1.Y=1361.991mil|Location2.Y=1373.241mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.062mm &lt; 0.254mm) Between Pad R5-2(13.527mm,4.575mm) on Top Layer And Via (13.225mm,5.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.062mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.375mil|Location2.X=2145.625mil|Location1.Y=1449.202mil|Location2.Y=1460.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.375mil|Location2.X=2145.625mil|Location1.Y=1449.202mil|Location2.Y=1460.452mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Pad R6-1(29.406mm,6.731mm) on Top Layer And Pad R6-2(28.506mm,6.731mm) on Top Layer [Top Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1371.773mil|Location2.X=1383.023mil|Location1.Y=1665.458mil|Location2.Y=1676.708mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1371.773mil|Location2.X=1383.023mil|Location1.Y=1665.458mil|Location2.Y=1676.708mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.052mm &lt; 0.254mm) Between Pad U1-2(10.221mm,11.894mm) on Top Layer And Via (9.068mm,12.7mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.052mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370.783mil|Location2.X=1382.033mil|Location1.Y=1607.753mil|Location2.Y=1619.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370.783mil|Location2.X=1382.033mil|Location1.Y=1607.753mil|Location2.Y=1619.937mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.122mm &lt; 0.254mm) Between Pad U1-2(10.221mm,11.894mm) on Top Layer And Via (9.093mm,10.846mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.122mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1351.375mil|Location2.X=1362.625mil|Location1.Y=1691.304mil|Location2.Y=1702.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1351.375mil|Location2.X=1362.625mil|Location1.Y=1691.304mil|Location2.Y=1702.554mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.111mm &lt; 0.254mm) Between Pad U1-3(9.271mm,14.014mm) on Top Layer And Via (9.068mm,12.7mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.111mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1753.734mil|Location2.X=1764.984mil|Location1.Y=1310.822mil|Location2.Y=1322.072mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1753.734mil|Location2.X=1764.984mil|Location1.Y=1310.822mil|Location2.Y=1322.072mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-1(19.571mm,2.956mm) on Top Layer And Pad U2-2(19.924mm,3.31mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.009mil|Location2.X=1890.259mil|Location1.Y=1436.096mil|Location2.Y=1447.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.009mil|Location2.X=1890.259mil|Location1.Y=1436.096mil|Location2.Y=1447.346mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-10(22.753mm,6.138mm) on Top Layer And Pad U2-11(23.106mm,6.492mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.089mil|Location2.X=1876.339mil|Location1.Y=1422.177mil|Location2.Y=1433.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.089mil|Location2.X=1876.339mil|Location1.Y=1422.177mil|Location2.Y=1433.427mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-10(22.753mm,6.138mm) on Top Layer And Pad U2-9(22.399mm,5.785mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1929.119mil|Location2.X=1940.369mil|Location1.Y=1413.825mil|Location2.Y=1425.075mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1929.119mil|Location2.X=1940.369mil|Location1.Y=1413.825mil|Location2.Y=1425.075mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-11(23.106mm,6.492mm) on Top Layer And Pad U2-12(23.46mm,6.845mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1929.119mil|Location2.X=1940.369mil|Location1.Y=1534.924mil|Location2.Y=1546.174mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1929.119mil|Location2.X=1940.369mil|Location1.Y=1534.924mil|Location2.Y=1546.174mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-13(23.46mm,8.649mm) on Top Layer And Pad U2-14(23.106mm,9.002mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1915.199mil|Location2.X=1926.449mil|Location1.Y=1548.844mil|Location2.Y=1560.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1915.199mil|Location2.X=1926.449mil|Location1.Y=1548.844mil|Location2.Y=1560.094mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-14(23.106mm,9.002mm) on Top Layer And Pad U2-15(22.753mm,9.356mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1876.086mil|Location2.X=1887.336mil|Location1.Y=1504.817mil|Location2.Y=1516.067mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1876.086mil|Location2.X=1887.336mil|Location1.Y=1504.817mil|Location2.Y=1516.067mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.051mm &lt; 0.254mm) Between Pad U2-14(23.106mm,9.002mm) on Top Layer And Via (21.871mm,8.474mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.051mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1901.28mil|Location2.X=1912.53mil|Location1.Y=1562.763mil|Location2.Y=1574.013mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1901.28mil|Location2.X=1912.53mil|Location1.Y=1562.763mil|Location2.Y=1574.013mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-15(22.753mm,9.356mm) on Top Layer And Pad U2-16(22.399mm,9.709mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.36mil|Location2.X=1898.61mil|Location1.Y=1576.683mil|Location2.Y=1587.933mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.36mil|Location2.X=1898.61mil|Location1.Y=1576.683mil|Location2.Y=1587.933mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-16(22.399mm,9.709mm) on Top Layer And Pad U2-17(22.045mm,10.063mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.253mil|Location2.X=1868.503mil|Location1.Y=1523.65mil|Location2.Y=1534.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1857.253mil|Location2.X=1868.503mil|Location1.Y=1523.65mil|Location2.Y=1534.9mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.051mm &lt; 0.254mm) Between Pad U2-16(22.399mm,9.709mm) on Top Layer And Via (21.871mm,8.474mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.051mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1873.441mil|Location2.X=1884.691mil|Location1.Y=1590.602mil|Location2.Y=1601.852mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1873.441mil|Location2.X=1884.691mil|Location1.Y=1590.602mil|Location2.Y=1601.852mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-17(22.045mm,10.063mm) on Top Layer And Pad U2-18(21.692mm,10.416mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1859.522mil|Location2.X=1870.772mil|Location1.Y=1604.521mil|Location2.Y=1615.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1859.522mil|Location2.X=1870.772mil|Location1.Y=1604.521mil|Location2.Y=1615.771mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-18(21.692mm,10.416mm) on Top Layer And Pad U2-19(21.338mm,10.77mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1809.412mil|Location2.X=1820.662mil|Location1.Y=1582.25mil|Location2.Y=1593.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1809.412mil|Location2.X=1820.662mil|Location1.Y=1582.25mil|Location2.Y=1593.5mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-19(21.338mm,10.77mm) on Top Layer And Pad U2-20(20.985mm,11.123mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1767.653mil|Location2.X=1778.903mil|Location1.Y=1324.741mil|Location2.Y=1335.991mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1767.653mil|Location2.X=1778.903mil|Location1.Y=1324.741mil|Location2.Y=1335.991mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-2(19.924mm,3.31mm) on Top Layer And Pad U2-3(20.278mm,3.663mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1831.683mil|Location2.X=1842.933mil|Location1.Y=1632.36mil|Location2.Y=1643.61mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1831.683mil|Location2.X=1842.933mil|Location1.Y=1632.36mil|Location2.Y=1643.61mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-20(20.985mm,11.123mm) on Top Layer And Pad U2-21(20.631mm,11.477mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.763mil|Location2.X=1829.013mil|Location1.Y=1646.28mil|Location2.Y=1657.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.763mil|Location2.X=1829.013mil|Location1.Y=1646.28mil|Location2.Y=1657.53mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-21(20.631mm,11.477mm) on Top Layer And Pad U2-22(20.278mm,11.831mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1803.844mil|Location2.X=1815.094mil|Location1.Y=1660.199mil|Location2.Y=1671.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1803.844mil|Location2.X=1815.094mil|Location1.Y=1660.199mil|Location2.Y=1671.449mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-22(20.278mm,11.831mm) on Top Layer And Pad U2-23(19.924mm,12.184mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1753.734mil|Location2.X=1764.984mil|Location1.Y=1637.928mil|Location2.Y=1649.178mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1753.734mil|Location2.X=1764.984mil|Location1.Y=1637.928mil|Location2.Y=1649.178mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-23(19.924mm,12.184mm) on Top Layer And Pad U2-24(19.571mm,12.538mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.826mil|Location2.X=1680.076mil|Location1.Y=1674.119mil|Location2.Y=1685.369mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.826mil|Location2.X=1680.076mil|Location1.Y=1674.119mil|Location2.Y=1685.369mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-25(17.767mm,12.538mm) on Top Layer And Pad U2-26(17.414mm,12.184mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1654.906mil|Location2.X=1666.156mil|Location1.Y=1660.199mil|Location2.Y=1671.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1654.906mil|Location2.X=1666.156mil|Location1.Y=1660.199mil|Location2.Y=1671.449mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-26(17.414mm,12.184mm) on Top Layer And Pad U2-27(17.06mm,11.831mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.987mil|Location2.X=1652.237mil|Location1.Y=1646.28mil|Location2.Y=1657.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.987mil|Location2.X=1652.237mil|Location1.Y=1646.28mil|Location2.Y=1657.53mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-27(17.06mm,11.831mm) on Top Layer And Pad U2-28(16.707mm,11.477mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.258mil|Location2.X=1674.508mil|Location1.Y=1596.17mil|Location2.Y=1607.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.258mil|Location2.X=1674.508mil|Location1.Y=1596.17mil|Location2.Y=1607.42mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-28(16.707mm,11.477mm) on Top Layer And Pad U2-29(16.353mm,11.123mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1613.148mil|Location2.X=1624.398mil|Location1.Y=1618.441mil|Location2.Y=1629.691mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1613.148mil|Location2.X=1624.398mil|Location1.Y=1618.441mil|Location2.Y=1629.691mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-29(16.353mm,11.123mm) on Top Layer And Pad U2-30(16mm,10.77mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1612.098mil|Location2.X=1623.348mil|Location1.Y=1634.063mil|Location2.Y=1645.313mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1612.098mil|Location2.X=1623.348mil|Location1.Y=1634.063mil|Location2.Y=1645.313mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.146mm &lt; 0.254mm) Between Pad U2-29(16.353mm,11.123mm) on Top Layer And Via (15.3mm,12.225mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.146mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.763mil|Location2.X=1829.013mil|Location1.Y=1302.47mil|Location2.Y=1313.72mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.763mil|Location2.X=1829.013mil|Location1.Y=1302.47mil|Location2.Y=1313.72mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-3(20.278mm,3.663mm) on Top Layer And Pad U2-4(20.631mm,4.017mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1599.228mil|Location2.X=1610.478mil|Location1.Y=1604.521mil|Location2.Y=1615.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1599.228mil|Location2.X=1610.478mil|Location1.Y=1604.521mil|Location2.Y=1615.771mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-30(16mm,10.77mm) on Top Layer And Pad U2-31(15.646mm,10.416mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1585.309mil|Location2.X=1596.559mil|Location1.Y=1590.602mil|Location2.Y=1601.852mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1585.309mil|Location2.X=1596.559mil|Location1.Y=1590.602mil|Location2.Y=1601.852mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-31(15.646mm,10.416mm) on Top Layer And Pad U2-32(15.293mm,10.063mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.39mil|Location2.X=1582.64mil|Location1.Y=1576.683mil|Location2.Y=1587.933mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.39mil|Location2.X=1582.64mil|Location1.Y=1576.683mil|Location2.Y=1587.933mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-32(15.293mm,10.063mm) on Top Layer And Pad U2-33(14.939mm,9.709mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.66mil|Location2.X=1604.91mil|Location1.Y=1526.573mil|Location2.Y=1537.823mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.66mil|Location2.X=1604.91mil|Location1.Y=1526.573mil|Location2.Y=1537.823mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-33(14.939mm,9.709mm) on Top Layer And Pad U2-34(14.585mm,9.356mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1602.169mil|Location2.X=1613.419mil|Location1.Y=1522.659mil|Location2.Y=1533.909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1602.169mil|Location2.X=1613.419mil|Location1.Y=1522.659mil|Location2.Y=1533.909mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.105mm &lt; 0.254mm) Between Pad U2-33(14.939mm,9.709mm) on Top Layer And Via (15.516mm,8.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.105mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.551mil|Location2.X=1554.801mil|Location1.Y=1548.844mil|Location2.Y=1560.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1543.551mil|Location2.X=1554.801mil|Location1.Y=1548.844mil|Location2.Y=1560.094mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-34(14.585mm,9.356mm) on Top Layer And Pad U2-35(14.232mm,9.002mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1565.822mil|Location2.X=1577.072mil|Location1.Y=1498.734mil|Location2.Y=1509.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1565.822mil|Location2.X=1577.072mil|Location1.Y=1498.734mil|Location2.Y=1509.984mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-35(14.232mm,9.002mm) on Top Layer And Pad U2-36(13.878mm,8.649mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1583.654mil|Location2.X=1594.904mil|Location1.Y=1504.144mil|Location2.Y=1515.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1583.654mil|Location2.X=1594.904mil|Location1.Y=1504.144mil|Location2.Y=1515.394mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.105mm &lt; 0.254mm) Between Pad U2-35(14.232mm,9.002mm) on Top Layer And Via (15.516mm,8.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.105mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.304mil|Location2.X=1544.554mil|Location1.Y=1502.407mil|Location2.Y=1513.657mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.304mil|Location2.X=1544.554mil|Location1.Y=1502.407mil|Location2.Y=1513.657mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.083mm &lt; 0.254mm) Between Pad U2-36(13.878mm,8.649mm) on Top Layer And Via (13.305mm,8.075mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.083mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1565.822mil|Location2.X=1577.072mil|Location1.Y=1450.016mil|Location2.Y=1461.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1565.822mil|Location2.X=1577.072mil|Location1.Y=1450.016mil|Location2.Y=1461.266mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-37(13.878mm,6.845mm) on Top Layer And Pad U2-38(14.232mm,6.492mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1519.928mil|Location2.X=1531.178mil|Location1.Y=1407.178mil|Location2.Y=1418.428mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1519.928mil|Location2.X=1531.178mil|Location1.Y=1407.178mil|Location2.Y=1418.428mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.252mm &lt; 0.254mm) Between Pad U2-37(13.878mm,6.845mm) on Top Layer And Via (13.225mm,5.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.252mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1579.741mil|Location2.X=1590.991mil|Location1.Y=1436.096mil|Location2.Y=1447.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1579.741mil|Location2.X=1590.991mil|Location1.Y=1436.096mil|Location2.Y=1447.346mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-38(14.232mm,6.492mm) on Top Layer And Pad U2-39(14.585mm,6.138mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1529.442mil|Location2.X=1540.692mil|Location1.Y=1398.933mil|Location2.Y=1410.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1529.442mil|Location2.X=1540.692mil|Location1.Y=1398.933mil|Location2.Y=1410.183mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.089mm &lt; 0.254mm) Between Pad U2-38(14.232mm,6.492mm) on Top Layer And Via (13.225mm,5.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.089mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.66mil|Location2.X=1604.91mil|Location1.Y=1422.177mil|Location2.Y=1433.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.66mil|Location2.X=1604.91mil|Location1.Y=1422.177mil|Location2.Y=1433.427mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-39(14.585mm,6.138mm) on Top Layer And Pad U2-40(14.939mm,5.785mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1537.988mil|Location2.X=1549.238mil|Location1.Y=1387.005mil|Location2.Y=1400.669mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1537.988mil|Location2.X=1549.238mil|Location1.Y=1387.005mil|Location2.Y=1400.669mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.208mm &lt; 0.254mm) Between Pad U2-39(14.585mm,6.138mm) on Top Layer And Via (13.225mm,5.425mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.208mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1795.492mil|Location2.X=1806.742mil|Location1.Y=1352.58mil|Location2.Y=1363.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1795.492mil|Location2.X=1806.742mil|Location1.Y=1352.58mil|Location2.Y=1363.83mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-4(20.631mm,4.017mm) on Top Layer And Pad U2-5(20.985mm,4.371mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.389mil|Location2.X=1582.639mil|Location1.Y=1372.067mil|Location2.Y=1383.317mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.389mil|Location2.X=1582.639mil|Location1.Y=1372.067mil|Location2.Y=1383.317mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-40(14.939mm,5.785mm) on Top Layer And Pad U2-41(15.293mm,5.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1621.499mil|Location2.X=1632.749mil|Location1.Y=1394.338mil|Location2.Y=1405.588mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1621.499mil|Location2.X=1632.749mil|Location1.Y=1394.338mil|Location2.Y=1405.588mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-41(15.293mm,5.431mm) on Top Layer And Pad U2-42(15.646mm,5.078mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1635.419mil|Location2.X=1646.669mil|Location1.Y=1380.419mil|Location2.Y=1391.669mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1635.419mil|Location2.X=1646.669mil|Location1.Y=1380.419mil|Location2.Y=1391.669mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-42(15.646mm,5.078mm) on Top Layer And Pad U2-43(16mm,4.724mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.338mil|Location2.X=1660.588mil|Location1.Y=1366.499mil|Location2.Y=1377.749mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.338mil|Location2.X=1660.588mil|Location1.Y=1366.499mil|Location2.Y=1377.749mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-43(16mm,4.724mm) on Top Layer And Pad U2-44(16.353mm,4.371mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.258mil|Location2.X=1674.508mil|Location1.Y=1352.58mil|Location2.Y=1363.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.258mil|Location2.X=1674.508mil|Location1.Y=1352.58mil|Location2.Y=1363.83mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-44(16.353mm,4.371mm) on Top Layer And Pad U2-45(16.707mm,4.017mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1677.177mil|Location2.X=1688.427mil|Location1.Y=1338.66mil|Location2.Y=1349.91mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1677.177mil|Location2.X=1688.427mil|Location1.Y=1338.66mil|Location2.Y=1349.91mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-45(16.707mm,4.017mm) on Top Layer And Pad U2-46(17.06mm,3.663mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1691.097mil|Location2.X=1702.347mil|Location1.Y=1324.741mil|Location2.Y=1335.991mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1691.097mil|Location2.X=1702.347mil|Location1.Y=1324.741mil|Location2.Y=1335.991mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-46(17.06mm,3.663mm) on Top Layer And Pad U2-47(17.414mm,3.31mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1705.016mil|Location2.X=1716.266mil|Location1.Y=1310.822mil|Location2.Y=1322.072mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1705.016mil|Location2.X=1716.266mil|Location1.Y=1310.822mil|Location2.Y=1322.072mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-47(17.414mm,3.31mm) on Top Layer And Pad U2-48(17.767mm,2.956mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1809.412mil|Location2.X=1820.662mil|Location1.Y=1366.499mil|Location2.Y=1377.749mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1809.412mil|Location2.X=1820.662mil|Location1.Y=1366.499mil|Location2.Y=1377.749mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-5(20.985mm,4.371mm) on Top Layer And Pad U2-6(21.338mm,4.724mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1823.331mil|Location2.X=1834.581mil|Location1.Y=1380.419mil|Location2.Y=1391.669mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1823.331mil|Location2.X=1834.581mil|Location1.Y=1380.419mil|Location2.Y=1391.669mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-6(21.338mm,4.724mm) on Top Layer And Pad U2-7(21.692mm,5.078mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.186mil|Location2.X=1822.014mil|Location1.Y=1381.744mil|Location2.Y=1392.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.186mil|Location2.X=1822.014mil|Location1.Y=1381.744mil|Location2.Y=1392.994mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad U2-6(21.338mm,4.724mm) on Top Layer And Via (20.4mm,5.825mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1837.251mil|Location2.X=1848.501mil|Location1.Y=1394.338mil|Location2.Y=1405.588mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1837.251mil|Location2.X=1848.501mil|Location1.Y=1394.338mil|Location2.Y=1405.588mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-7(21.692mm,5.078mm) on Top Layer And Pad U2-8(22.045mm,5.431mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1819.024mil|Location2.X=1830.274mil|Location1.Y=1391.273mil|Location2.Y=1404.791mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1819.024mil|Location2.X=1830.274mil|Location1.Y=1391.273mil|Location2.Y=1404.791mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.152mm &lt; 0.254mm) Between Pad U2-7(21.692mm,5.078mm) on Top Layer And Via (20.4mm,5.825mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.152mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1851.17mil|Location2.X=1862.42mil|Location1.Y=1408.258mil|Location2.Y=1419.508mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1851.17mil|Location2.X=1862.42mil|Location1.Y=1408.258mil|Location2.Y=1419.508mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U2-8(22.045mm,5.431mm) on Top Layer And Pad U2-9(22.399mm,5.785mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.873mil|Location2.X=1852.629mil|Location1.Y=1409.328mil|Location2.Y=1420.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.873mil|Location2.X=1852.629mil|Location1.Y=1409.328mil|Location2.Y=1420.578mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.01mm &lt; 0.254mm) Between Pad U2-8(22.045mm,5.431mm) on Top Layer And Via (21.235mm,6.541mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.01mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.25mil|Location2.X=1860.5mil|Location1.Y=1418.952mil|Location2.Y=1432.222mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.25mil|Location2.X=1860.5mil|Location1.Y=1418.952mil|Location2.Y=1432.222mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.036mm &lt; 0.254mm) Between Pad U2-9(22.399mm,5.785mm) on Top Layer And Via (21.235mm,6.541mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.036mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1588.902mil|Location2.Y=1600.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1588.902mil|Location2.Y=1600.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-1(26.217mm,10.906mm) on Top Layer And Pad U3-2(26.217mm,10.406mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.903mil|Location2.X=2140.153mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.903mil|Location2.X=2140.153mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-10(29.067mm,8.056mm) on Top Layer And Pad U3-9(28.567mm,8.056mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1529.847mil|Location2.Y=1541.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1529.847mil|Location2.Y=1541.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-11(29.917mm,8.906mm) on Top Layer And Pad U3-12(29.917mm,9.406mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1549.532mil|Location2.Y=1560.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1549.532mil|Location2.Y=1560.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-12(29.917mm,9.406mm) on Top Layer And Pad U3-13(29.917mm,9.906mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1569.217mil|Location2.Y=1580.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1569.217mil|Location2.Y=1580.467mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-13(29.917mm,9.906mm) on Top Layer And Pad U3-14(29.917mm,10.406mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1588.902mil|Location2.Y=1600.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.068mil|Location2.X=2192.318mil|Location1.Y=1588.902mil|Location2.Y=1600.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-14(29.917mm,10.406mm) on Top Layer And Pad U3-15(29.917mm,10.906mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.903mil|Location2.X=2140.153mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.903mil|Location2.X=2140.153mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-16(29.067mm,11.756mm) on Top Layer And Pad U3-17(28.567mm,11.756mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.218mil|Location2.X=2120.468mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.218mil|Location2.X=2120.468mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-17(28.567mm,11.756mm) on Top Layer And Pad U3-18(28.067mm,11.756mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.532mil|Location2.X=2100.782mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.532mil|Location2.X=2100.782mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-18(28.067mm,11.756mm) on Top Layer And Pad U3-19(27.567mm,11.756mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.847mil|Location2.X=2081.097mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.847mil|Location2.X=2081.097mil|Location1.Y=1623.351mil|Location2.Y=1634.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-19(27.567mm,11.756mm) on Top Layer And Pad U3-20(27.067mm,11.756mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1569.217mil|Location2.Y=1580.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1569.217mil|Location2.Y=1580.467mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-2(26.217mm,10.406mm) on Top Layer And Pad U3-3(26.217mm,9.906mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2008.485mil|Location2.X=2019.735mil|Location1.Y=1572.434mil|Location2.Y=1585.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2008.485mil|Location2.X=2019.735mil|Location1.Y=1572.434mil|Location2.Y=1585.055mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.085mm &lt; 0.254mm) Between Pad U3-2(26.217mm,10.406mm) on Top Layer And Via (25.286mm,10.003mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.085mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1549.532mil|Location2.Y=1560.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1549.532mil|Location2.Y=1560.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-3(26.217mm,9.906mm) on Top Layer And Pad U3-4(26.217mm,9.406mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1529.847mil|Location2.Y=1541.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2035.399mil|Location2.X=2046.649mil|Location1.Y=1529.847mil|Location2.Y=1541.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-4(26.217mm,9.406mm) on Top Layer And Pad U3-5(26.217mm,8.906mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.92mil|Location2.X=2019.17mil|Location1.Y=1547.94mil|Location2.Y=1559.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.92mil|Location2.X=2019.17mil|Location1.Y=1547.94mil|Location2.Y=1559.377mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.196mm &lt; 0.254mm) Between Pad U3-4(26.217mm,9.406mm) on Top Layer And Via (25.286mm,10.003mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.196mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.847mil|Location2.X=2081.097mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.847mil|Location2.X=2081.097mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-6(27.067mm,8.056mm) on Top Layer And Pad U3-7(27.567mm,8.056mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.532mil|Location2.X=2100.782mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.532mil|Location2.X=2100.782mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-7(27.567mm,8.056mm) on Top Layer And Pad U3-8(28.067mm,8.056mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.218mil|Location2.X=2120.468mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.218mil|Location2.X=2120.468mil|Location1.Y=1477.682mil|Location2.Y=1488.932mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-8(28.067mm,8.056mm) on Top Layer And Pad U3-9(28.567mm,8.056mm) on Top Layer [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1537.682mil|Location2.X=1548.932mil|Location1.Y=1671.343mil|Location2.Y=1682.593mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1537.682mil|Location2.X=1548.932mil|Location1.Y=1671.343mil|Location2.Y=1682.593mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.254mm) Between Via (13.8mm,12.2mm) from Top Layer to Bottom Layer And Via (13.8mm,13.3mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.097mm] / [Bottom Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1597.229mil|Location2.X=1608.479mil|Location1.Y=1671.343mil|Location2.Y=1682.593mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1597.229mil|Location2.X=1608.479mil|Location1.Y=1671.343mil|Location2.Y=1682.593mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Via (15.325mm,13.275mm) from Top Layer to Bottom Layer And Via (15.3mm,12.225mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.047mm] / [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1748.345mil|Location2.X=1759.595mil|Location1.Y=1215.125mil|Location2.Y=1226.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1748.345mil|Location2.X=1759.595mil|Location1.Y=1215.125mil|Location2.Y=1226.485mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.051mm &lt; 0.254mm) Between Via (18.752mm,1.506mm) from Top Layer to Bottom Layer And Via (19.55mm,0.818mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.051mm] / [Bottom Solder] Mask Sliver [0.051mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1813.957mil|Location2.X=1825.207mil|Location1.Y=1412.729mil|Location2.Y=1424.045mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1813.957mil|Location2.X=1825.207mil|Location1.Y=1412.729mil|Location2.Y=1424.045mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.096mm &lt; 0.254mm) Between Via (20.4mm,5.825mm) from Top Layer to Bottom Layer And Via (21.235mm,6.541mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.096mm] / [Bottom Solder] Mask Sliver [0.096mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.015mil|Location2.X=1864.265mil|Location1.Y=1738.478mil|Location2.Y=1749.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1853.015mil|Location2.X=1864.265mil|Location1.Y=1738.478mil|Location2.Y=1749.728mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.123mm &lt; 0.254mm) Between Via (21.394mm,14.835mm) from Top Layer to Bottom Layer And Via (22.225mm,14.075mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.123mm] / [Bottom Solder] Mask Sliver [0.123mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2043.564mil|Location2.X=2054.814mil|Location1.Y=1393.255mil|Location2.Y=1404.505mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2043.564mil|Location2.X=2054.814mil|Location1.Y=1393.255mil|Location2.Y=1404.505mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.051mm &lt; 0.254mm) Between Via (26.124mm,5.648mm) from Top Layer to Bottom Layer And Via (27.175mm,5.725mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.051mm] / [Bottom Solder] Mask Sliver [0.051mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2231.58mil|Location2.X=2242.83mil|Location1.Y=1747.131mil|Location2.Y=1758.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2231.58mil|Location2.X=2242.83mil|Location1.Y=1747.131mil|Location2.Y=1758.381mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.147mm &lt; 0.254mm) Between Via (30.85mm,14.675mm) from Top Layer to Bottom Layer And Via (32mm,14.675mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.147mm] / [Bottom Solder] Mask Sliver [0.147mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2393.253mil|Location2.X=2404.503mil|Location1.Y=1469.808mil|Location2.Y=1481.058mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2393.253mil|Location2.X=2404.503mil|Location1.Y=1469.808mil|Location2.Y=1481.058mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.035mm &lt; 0.254mm) Between Via (35.525mm,8.15mm) from Top Layer to Bottom Layer And Via (35.538mm,7.112mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.035mm] / [Bottom Solder] Mask Sliver [0.035mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSUQVW00HB21QKC4MWUWVODCU3BXUPSND1RHAS3L1WH5Q55ESHIQE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2288.823mil|Location2.X=2335.809mil|Location1.Y=1401.815mil|Location2.Y=1475.044mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2288.823mil|Location2.X=2335.809mil|Location1.Y=1401.815mil|Location2.Y=1475.044mil|Absolute=True">Net Antennae: Track (33.225mm,6.25mm)(38.675mm,0.8mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2297.681mil|Location2.X=2344.668mil|Location1.Y=1597.681mil|Location2.Y=1670.91mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2297.681mil|Location2.X=2344.668mil|Location1.Y=1597.681mil|Location2.Y=1670.91mil|Absolute=True">Net Antennae: Track (33.45mm,11.225mm)(38.65mm,16.425mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.618mil|Location2.X=2849.631mil|Location1.Y=1265.516mil|Location2.Y=1391.149mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\RF-Transceiver\RF Transceiver PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.618mil|Location2.X=2849.631mil|Location1.Y=1265.516mil|Location2.Y=1391.149mil|Absolute=True">Net Antennae: Track (45.85mm,3.15mm)(48.25mm,3.15mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
